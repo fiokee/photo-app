@@ -17,6 +17,7 @@ const Auth = () => {
     
     const [formFields, setFormFields]=useState(defaultForm);
     const {email, password}= formFields;
+    const [isLogInMode, setIsLogInMode] = useState(true)
 
     const handleInputChange = (event)=>{
         const {name, value}= event.target
@@ -24,15 +25,33 @@ const Auth = () => {
     }
     console.log(formFields)
 
+    //swichmode
+    const switchModeHandler = ()=>{
+        setIsLogInMode(prevMode => !prevMode);
+        console.log("signup");
+    }
+
     //reseting formfields
     const resetFormFields = ()=>{
         setFormFields(defaultForm);
     }
+
+    
   return (
     <Card className="authentication">
         <h2>Login Required!</h2>
         <hr/>
         <form onSubmit={submitHandler}>
+            {isLogInMode && (
+                <Input element="input"
+                id="username"
+                name="username"
+                type="text"
+                label="Username"
+                errorText="please enter a username"
+                />
+            )}
+
             <Input 
             element="input" 
             id="email" 
@@ -42,6 +61,7 @@ const Auth = () => {
             label="E-mail" 
             onChange={handleInputChange}
             errorText="please enter a valid email address"/>
+            
             <Input 
             element="input" 
             id="password"
@@ -51,8 +71,13 @@ const Auth = () => {
             label="password" 
             onChange={handleInputChange}
             errorText="please enter a valid password"/>
-            <Button type="submit">LOGIN</Button>
+            <Button type="submit">
+                {isLogInMode ? "LOGIN" : "SIGNUP"}
+                </Button>
         </form>
+        <Button inverse onClick={switchModeHandler}>
+            SWITCH TO {isLogInMode ? "SIGNUP": "LOGIN"}
+        </Button>
     </Card>
   )
 }

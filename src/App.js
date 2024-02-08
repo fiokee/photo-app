@@ -6,10 +6,12 @@ import MainNavigation from './shared/UiElement/Navigation/MainNavigation';
 import UserPlaces from './places/pages/UserPlaces';
 import UpdatePlace from './places/pages/UpdatePlace';
 import Auth from './user/pages/Auth';
+import { AuthContext } from './shared/context/auth-context';
 
 function App() {
 
   return (
+    <AuthContext.Provider>
     <Router>
       <MainNavigation/>
       <main>
@@ -29,6 +31,7 @@ function App() {
       <Route path="/places/:placeId">
         <UpdatePlace/>
       </Route>
+      
       <Route path="/auth">
         <Auth/>
       </Route>
@@ -37,6 +40,7 @@ function App() {
       </Switch>
       </main>
     </Router>
+    </AuthContext.Provider>
   );
 }
 
