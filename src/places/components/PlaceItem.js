@@ -1,8 +1,9 @@
-import React, {Fragment, useState} from 'react'
+import React, {Fragment, useContext, useState} from 'react'
 import './PlaceItem.css';
 import Card from '../../shared/UiElement/Card/Card';
 import Button from '../../shared/formElement/Button/Button';
 import Modal from '../../shared/UiElement/Modal/Modal';
+import { AuthContext } from '../../shared/context/auth-context';
 
 const PlaceItem = (props) => {
   const [showMap, setShowMap]= useState(false);
@@ -24,7 +25,9 @@ const PlaceItem = (props) => {
   //cancel delete handler
   const cancelHandler =()=>{
     setShowConfirmModal(false);
-  }
+  };
+
+  const auth = useContext(AuthContext);
 
   return (
     <Fragment>
@@ -69,8 +72,13 @@ const PlaceItem = (props) => {
       </div>
       <div className='place-item__actions'>
         <Button inverse onClick={showMapHandler}>VIEW ON MAP</Button>
-        <Button to={`/places/${props.id}`}>EDIT</Button>
-        <Button danger onClick={showDeleteWarning}>DELETE</Button>
+        {auth.isLogedIn && (
+          <React.Fragment>
+
+            <Button to={`/places/${props.id}`}>EDIT</Button>
+            <Button danger onClick={showDeleteWarning}>DELETE</Button>
+          </React.Fragment>
+        )}
       </div>
       </Card>
     </li>
