@@ -1,13 +1,17 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import './Auth.css';
 import Card from '../../shared/UiElement/Card/Card';
 import Input from '../../shared/formElement/Input';
 import Button from '../../shared/formElement/Button/Button';
+import { AuthContext } from '../../shared/context/auth-context';
 
 const Auth = () => {
+    const auth = useContext(AuthContext);
+
     const submitHandler = (event)=>{
         event.preventDefault();
-        console.log("submitted")
+        auth.login();
+        console.log("login")
     }
 
     const defaultForm = {
