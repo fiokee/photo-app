@@ -42,13 +42,37 @@ const Auth = () => {
     const submitHandler = async (event)=>{
         event.preventDefault();
 
+            setIsLoading(true);
         //connecting to backend
         if(isLogInMode){ //check to see wether is login mode 
+            try{
+                const response = await fetch(`http://localhost:5000/api/users/login`,{
+                 method: 'POST',
+                 headers:{
+                     'Content-Type': 'application/json' //this tells the kind of data we are expecting
+                 },
+                 body: JSON.stringify({
+                     email: formFields.email,
+                     password: formFields.password
+                 })
+             });
+ 
+             const responseData = await response.json();
+             if(!response.ok){
+                 throw new Error(responseData.message);
+             }
+             setIsLoading(false); 
+             auth.login();
+             }catch(err){
+                 setIsLoading(false); 
+                 setError(err.message || 'Something went wrong, please try again')
+             }
+             
+             //signup Mode
 
         }else{ //sending the post request when we are in signup mode
         
             try{
-                setIsLoading(true);
                const response = await fetch(`http://localhost:5000/api/users/signup`,{
                 method: 'POST',
                 headers:{
@@ -65,7 +89,6 @@ const Auth = () => {
             if(!response.ok){
                 throw new Error(responseData.message);
             }
-            console.log(responseData);
             setIsLoading(false); 
             auth.login();
             }catch(err){
