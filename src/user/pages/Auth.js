@@ -6,6 +6,7 @@ import Button from '../../shared/formElement/Button/Button';
 import { AuthContext } from '../../shared/context/auth-context';
 import ErrorModal from '../../shared/UiElement/Errormodal/ErrorModal';
 import LoadingSpinner from '../../shared/UiElement/Loading/LoadingSpinner';
+import useHttpClient from '../../shared/http_hook';
 
 const Auth = () => {
     const auth = useContext(AuthContext);
@@ -19,8 +20,8 @@ const Auth = () => {
     const [formFields, setFormFields]=useState(defaultForm);
     const {name, email, password}= formFields;
     const [isLogInMode, setIsLogInMode] = useState(true);
-    const [isLoading, setIsLoading] = useState(false);
-    const [error, setError]= useState();
+
+    const {isLoading, error, sendRequest, clearError} = useHttpClient();
 
     const handleInputChange = (event)=>{
         const {name, value}= event.target
@@ -42,66 +43,56 @@ const Auth = () => {
     const submitHandler = async (event)=>{
         event.preventDefault();
 
-            setIsLoading(true);
+            
         //connecting to backend
         if(isLogInMode){ //check to see wether is login mode 
-            try{
-                const response = await fetch(`http://localhost:5000/api/users/login`,{
-                 method: 'POST',
-                 headers:{
-                     'Content-Type': 'application/json' //this tells the kind of data we are expecting
-                 },
-                 body: JSON.stringify({
-                     email: formFields.email,
-                     password: formFields.password
-                 })
-             });
- 
-             const responseData = await response.json();
-             if(!response.ok){
-                 throw new Error(responseData.message);
-             }
-             setIsLoading(false); 
-             auth.login();
-             }catch(err){
-                 setIsLoading(false); 
-                 setError(err.message || 'Something went wrong, please try again')
-             }
-             
+        try {
+            await sendRequest(
+                `http://localhost:5000/api/users/login`,
+                'POST',
+                JSON.stringify({
+                email: formFields.email,
+                password: formFields.password
+                }),
+                {
+                    'Content-Type': 'application/json' //this tells the kind of data we are expecting
+                },   
+            );
+
+            auth.login();
+
+        } catch (error) {
+            
+        }
+            
              //signup Mode
 
         }else{ //sending the post request when we are in signup mode
         
             try{
-               const response = await fetch(`http://localhost:5000/api/users/signup`,{
-                method: 'POST',
-                headers:{
-                    'Content-Type': 'application/json' //this tells the kind of data we are expecting
-                },
-                body: JSON.stringify({
+                await sendRequest(
+                `http://localhost:5000/api/users/signup`,
+                'POST', 
+                JSON.stringify({
                     name:formFields.name,
                     email: formFields.email,
                     password: formFields.password
-                })
-            });
-
-            const responseData = await response.json();
-            if(!response.ok){
-                throw new Error(responseData.message);
-            }
-            setIsLoading(false); 
+                }),
+                {
+                    'Content-Type': 'application/json' //this tells the kind of data we are expecting
+                },
+         
+            );
             auth.login();
             }catch(err){
-                setIsLoading(false); 
-                setError(err.message || 'Something went wrong, please try again')
             }
             
         }         
     }
-
-    const errorHandler = ()=>{
-        setError(null);
+    const errorHandler = ()=>{  
+        clearError()
     }
+    
     
   return (
     <Fragment>
