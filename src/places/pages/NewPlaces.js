@@ -5,7 +5,8 @@ import Button from '../../shared/formElement/Button/Button';
 import useHttpClient from '../../shared/http_hook';
 import { AuthContext } from '../../shared/context/auth-context';
 import ErrorModal from '../../shared/UiElement/Errormodal/ErrorModal';
-import LoadingSpinner from '../../shared/UiElement/Loading/LoadingSpinner'
+import LoadingSpinner from '../../shared/UiElement/Loading/LoadingSpinner';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 
 const NewPlaces = (props) => {
@@ -28,7 +29,10 @@ const [isLogInMode, setIsLogInMode] = useState(true);
     const {name, value}= event.target
     setFormFields({ ...formFields, [name]: value });
 }
-console.log(formFields)
+// console.log(formFields);
+
+//for redirecting after creating a place
+const history = useHistory()
 
   const placeHandler = async (event)=>{
     event.preventDefault();
@@ -43,12 +47,13 @@ try {
     {
       'Content-Type': 'application/json' //this tells the kind of data we are expecting
     }
-    )
+    );
+    //redirect users to another route
+    history.push('/')
 } catch (err) { 
 }
-//redirect users to another page
     
-  }
+}
   return (
     <Fragment>
       <ErrorModal error = {error} onClear={clearError}/>

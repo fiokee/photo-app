@@ -1,39 +1,39 @@
-import React from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import {useParams} from 'react-router-dom'
 import { PlaceList } from '../components/PlaceList';
+import useHttpClient from '../../shared/http_hook';
+import ErrorModal from '../../shared/UiElement/Errormodal/ErrorModal';
+import LoadingSpinner from '../../shared/UiElement/Loading/LoadingSpinner';
 
-const DUMMY_PLACES = [
-    {
-      id: 'p1',
-      title: 'Empire State Building',
-      description: 'One of the most famous sky scrapers in the world!',
-      imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/NYC_Empire_State_Building.jpg/640px-NYC_Empire_State_Building.jpg',
-      address: '20 W 34th St, New York, NY 10001',
-      location: {
-        lat: 40.7484405,
-        lng: -73.9878584
-      },
-      creator: 'u1'
-    },
-    {
-      id: 'p2',
-      title: 'Empire State Building',
-      description: 'One of the most famous sky scrapers in the world!',
-      imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/NYC_Empire_State_Building.jpg/640px-NYC_Empire_State_Building.jpg',
-      address: '20 W 34th St, New York, NY 10001',
-      location: {
-        lat: 40.7484405,
-        lng: -73.9878584
-      },
-      creator: 'u2'
-    }
-  ];
 
 const UserPlaces = () => {
-    //filtering places base on userid
-    const userId = useParams().userId
-    const loadedPlace = DUMMY_PLACES.filter(place=> place.creator === userId)
-  return <PlaceList items={loadedPlace}/>
+  const {isLoading, sendRequest, error, clearError}= useHttpClient();
+  const [loadedePlaces, setLoadedPlaces] = useState(null);
+
+  //filtering place base on user id
+  const userId = useParams().userId;
+
+  useEffect(()=>{
+    const fetchUserPlaces = async()=>{
+      try {
+        const responseData = await sendRequest(`http://localhost:5000/api/places/user/${userId}`);
+        setLoadedPlaces(responseData.places)
+      } catch (err) {
+        console.error('Error fetching user places:', err);
+      }
+    };
+
+    fetchUserPlaces();
+  },[sendRequest, userId])
+    
+   
+  return(
+  <Fragment>
+    <ErrorModal error={error} onClear={clearError}/>
+    {isLoading && <LoadingSpinner asOverlay/>}
+    {!isLoading && loadedePlaces && <PlaceList items={loadedePlaces}/>}
+  </Fragment>
+  );
 };
 
 export default UserPlaces
