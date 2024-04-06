@@ -1,56 +1,92 @@
-import React from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import {useParams} from 'react-router-dom';
+import LoadingSpinner from '../../shared/UiElement/Loading/LoadingSpinner';
+import ErrorModal from '../../shared/UiElement/Errormodal/ErrorModal';
 import Input from '../../shared/formElement/Input';
 import Button from '../../shared/formElement/Button/Button';
-
-const DUMMY_PLACES = [
-  {
-    id: 'p1',
-    title: 'Empire State Building',
-    description: 'One of the most famous sky scrapers in the world!',
-    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/NYC_Empire_State_Building.jpg/640px-NYC_Empire_State_Building.jpg',
-    address: '20 W 34th St, New York, NY 10001',
-    location: {
-      lat: 40.7484405,
-      lng: -73.9878584
-    },
-    creator: 'u1'
-  },
-  {
-    id: 'p2',
-    title: 'Empire State Building',
-    description: 'One of the most famous sky scrapers in the world!',
-    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/NYC_Empire_State_Building.jpg/640px-NYC_Empire_State_Building.jpg',
-    address: '20 W 34th St, New York, NY 10001',
-    location: {
-      lat: 40.7484405,
-      lng: -73.9878584
-    },
-    creator: 'u2'
-  }
-];
+import useHttpClient from '../../shared/http_hook';
+import Card from '../../shared/UiElement/Card/Card';
 
 
 const UpdatePlace = () => {
-  const placeId = useParams().placeId;
-  const identifyPlace = DUMMY_PLACES.find(p=> p.id === placeId);
+  const defaultForm = {
+    title: '',
+    description: '',
+};
 
-  if(!identifyPlace === placeId){
-    return <div className="center">
-      <h2>Place not Found</h2>
-    </div>
+  const [formFields, setFormFields]=useState(defaultForm);
+  const {title, description }= formFields;
+  const {isLoading, sendRequest, error, clearError} = useHttpClient();
+  const [loadedData, setLoadedData] = useState(null);
+
+  const handleInputChange = (event)=>{
+    const {name, value}= event.target
+    setFormFields({ ...formFields, [name]: value });
+}
+console.log(formFields);
+
+  const placeId = useParams().placeId;
+  useEffect(()=>{
+    const fetchPlaceToUpdate = async ()=>{
+      try {
+        const responseData = await sendRequest(`http://localhost:5000/api/places/${placeId}`);
+        setLoadedData(responseData.place)
+      } catch (err) {
+       
+      };
+    };
+    fetchPlaceToUpdate();
+  },[sendRequest, placeId, setFormFields])
+  
+
+  const updatePlacehander = (event)=>{
+    event.preventDefault();
   }
+ 
+  
+  
+  if(isLoading){
+    return(
+      <div className='center'>
+        <LoadingSpinner/>
+      </div>
+    );
+  }
+
+  if(!loadedData && !error){
+    return( <div className="center">
+      <Card>
+      <h2>Place not Found</h2>
+      </Card>
+    </div>
+    )
+  };
   return (
-    <form>
-      <Input
+    <Fragment>
+      <ErrorModal error={error} onClear={clearError}/>
+    <form onSubmit={updatePlacehander}>
+      <input
       id='description'
        type='text'
         label='Description' 
         placeholder='Enter description'
-        value={identifyPlace.description}
+        name='title'
+        value={title}
+        onChange={handleInputChange}
+        />
+
+      <input
+      id='description'
+       type='text'
+        label='Description' 
+        placeholder='Enter description'
+        name='description'
+        value={description}
+        onChange={handleInputChange}
         />
         <Button type="submit" disabled={false}>Update Place</Button>
     </form>
+    </Fragment>
   )
 }
 
