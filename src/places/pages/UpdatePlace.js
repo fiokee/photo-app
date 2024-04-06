@@ -43,7 +43,7 @@ const UpdatePlace = () => {
 }
 // console.log(formFields);
   
-//this is where we can update the data
+//this is where we can update the data and store it back
   const updatePlacehandler = async (event)=>{
     event.preventDefault();
 

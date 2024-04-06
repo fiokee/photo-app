@@ -11,7 +11,6 @@ import useHttpClient from '../../shared/http_hook';
 const Auth = () => {
     const auth = useContext(AuthContext);
 
-    
     const defaultForm = {
         email: '',
         password: ''

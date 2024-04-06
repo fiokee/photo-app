@@ -1,5 +1,6 @@
 .place-item {
     margin: 1rem 0;
+    list-style: none;
   }
   
   .place-item__content {

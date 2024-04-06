@@ -25,13 +25,16 @@ const UserPlaces = () => {
 
     fetchUserPlaces();
   },[sendRequest, userId])
-    
-   
+
+  //filtering out places that was deleted and reloading the UI
+   const deletedHandler =(deletedPlaceId)=>{
+    setLoadedPlaces(prevPlaces => prevPlaces.filter(place => place.id !== deletedPlaceId))
+   }
   return(
   <Fragment>
     <ErrorModal error={error} onClear={clearError}/>
     {isLoading && <LoadingSpinner asOverlay/>}
-    {!isLoading && loadedePlaces && <PlaceList items={loadedePlaces}/>}
+    {!isLoading && loadedePlaces && <PlaceList items={loadedePlaces} onDeletePlace={deletedHandler}/>}
   </Fragment>
   );
 };
