@@ -7,26 +7,28 @@ import { AuthContext } from '../../shared/context/auth-context';
 import ErrorModal from '../../shared/UiElement/Errormodal/ErrorModal';
 import LoadingSpinner from '../../shared/UiElement/Loading/LoadingSpinner';
 import useHttpClient from '../../shared/http_hook';
+import ImageUpload from '../../shared/formElement/ImageUpload';
 
 const Auth = () => {
     const auth = useContext(AuthContext);
 
     const defaultForm = {
         email: '',
-        password: ''
+        password: '',
+        image: ''
     };
     
     const [formFields, setFormFields]=useState(defaultForm);
-    const {name, email, password}= formFields;
+    const {name, image, email, password}= formFields;
     const [isLogInMode, setIsLogInMode] = useState(true);
 
     const {isLoading, error, sendRequest, clearError} = useHttpClient();
 
-    const handleInputChange = (event)=>{
-        const {name, value}= event.target
-        setFormFields({ ...formFields, [name]: value });
+    const handleInputChange = (event, file)=>{
+        const {name, value}= event.target;
+        setFormFields({ ...formFields, [name]: value, image: file });
     }
-    // console.log(formFields)
+    console.log(formFields)
 
     //swichmode
     const switchModeHandler = ()=>{
@@ -75,6 +77,7 @@ const Auth = () => {
                 JSON.stringify({
                     name:formFields.name,
                     email: formFields.email,
+                    image: formFields.image,
                     password: formFields.password
                 }),
                 {
@@ -111,6 +114,7 @@ const Auth = () => {
                 errorText="please enter a username"
                 />
             )}
+            {!isLogInMode && (<ImageUpload onChange={handleInputChange} center id="image" />)}
 
             <input 
             element="input" 
