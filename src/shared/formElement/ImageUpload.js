@@ -29,7 +29,7 @@ const ImageUpload = (props) => {
           setIsValid(true);
           fileIsValid = true;
           props.onChange({ ...event, target: { ...event.target, name: props.id } }, pickedFile); // Pass the event object along with the file
-          
+          return;
         }else{
             setIsValid(false);
             fileIsValid = false
