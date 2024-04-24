@@ -64,33 +64,30 @@ const Auth = () => {
 
         } catch (error) {
             
-        }
-            
+        }        
              //signup Mode
 
         }else{ //sending the post request when we are in signup mode
         
             try{
+                const formData = new FormData();
+                formData.append('email', formFields.email);
+                formData.append('name', formFields.name);
+                formData.append('password', formFields.password);
+                formData.append('image', formFields.image);
+
                 const responseData =  await sendRequest(
                 `http://localhost:5000/api/users/signup`,
                 'POST', 
-                JSON.stringify({
-                    name:formFields.name,
-                    email: formFields.email,
-                    image: formFields.image,
-                    password: formFields.password
-                }),
-                {
-                    'Content-Type': 'application/json' //this tells the kind of data we are expecting
-                },
-         
+                formData
             );
             auth.login(responseData.user.id);
             }catch(err){
+                console.error(err)
             }
             
         }         
-    }
+    };
     const errorHandler = ()=>{  
         clearError()
     }
