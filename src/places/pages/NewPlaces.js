@@ -7,6 +7,7 @@ import { AuthContext } from '../../shared/context/auth-context';
 import ErrorModal from '../../shared/UiElement/Errormodal/ErrorModal';
 import LoadingSpinner from '../../shared/UiElement/Loading/LoadingSpinner';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import ImageUpload from '../../shared/formElement/ImageUpload';
 
 
 const NewPlaces = (props) => {
@@ -15,6 +16,7 @@ const NewPlaces = (props) => {
     title: '',
     description: '',
     address: '',
+    image:'',
     creator: ''
 
 };
@@ -37,17 +39,14 @@ const history = useHistory()
   const placeHandler = async (event)=>{
     event.preventDefault();
 try {
-  await sendRequest(`http://localhost:5000/api/places`, 'POST',
-    JSON.stringify({
-      title:formFields.title,
-      description: formFields.description,
-      address: formFields.address,
-      creator: auth.userId,
-    }),
-    {
-      'Content-Type': 'application/json' //this tells the kind of data we are expecting
-    }
-    );
+  const formData = new FormData();
+  formData.append('title', formFields.title);
+  formData.append('description', formFields.description);
+  formData.append('address', formFields.address);
+  formData.append('image', formFields.image);
+  formData.append('creator', auth.userId);
+
+  await sendRequest(`http://localhost:5000/api/places`, 'POST', formData);
     //redirect users to another route
     history.push('/')
 } catch (err) { 
@@ -62,7 +61,8 @@ try {
         <input onChange={handleInputChange} value={title} element='input' type='text' label='Title' placeholder='Enter Title' name='title' />
         <input onChange={handleInputChange} value={description} type='text' label='Description' placeholder='Enter description' name='description'/>
         <input onChange={handleInputChange} value={address} element='input' type='text' label='Address' placeholder='Enter a valid Address' name='address'/>
-        {/* <Input element='input' type='file' label='Add Image' /> */}
+        <ImageUpload onChange={handleInputChange} center id="image" errorText="please provide an image"/>
+        
         <Button >ADD</Button>
       </form>
     </Fragment>
