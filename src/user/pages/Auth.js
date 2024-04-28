@@ -26,9 +26,14 @@ const Auth = () => {
 
     const handleInputChange = (event, file)=>{
         const {name, value}= event.target;
-        setFormFields({ ...formFields, [name]: value, image: file });
+        if(name === 'image'){
+            setFormFields({ ...formFields, image: file });
+        }else{
+            setFormFields({ ...formFields, [name]: value, image: file });
+
+        }
     }
-    // console.log(formFields)
+    console.log(formFields)
 
     //swichmode
     const switchModeHandler = ()=>{
@@ -111,7 +116,12 @@ const Auth = () => {
                 errorText="please enter a username"
                 />
             )}
-            {!isLogInMode && (<ImageUpload onChange={handleInputChange} center id="image" errorText="please provide an image" />)}
+            {!isLogInMode && (<ImageUpload 
+            onChange={(event, file)=>handleInputChange(event, file)} 
+            center id="image" 
+            errorText="please provide an image" 
+            name="image"
+            />)}
 
             <input 
             element="input" 

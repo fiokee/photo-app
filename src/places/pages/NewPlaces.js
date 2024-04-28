@@ -27,11 +27,16 @@ const [isLogInMode, setIsLogInMode] = useState(true);
 
   const {isLoading, sendRequest, error, clearError} = useHttpClient();
 
-  const handleInputChange = (event)=>{
-    const {name, value}= event.target
-    setFormFields({ ...formFields, [name]: value });
+  const handleInputChange = (event, file)=>{
+    const {name, value}= event.target;
+    //checking and ensuring the image state is updated successfully
+    if(name === 'image'){
+      setFormFields({ ...formFields, image: file });
+    }else{
+      setFormFields({ ...formFields, [name]: value, image: file });
+    }
 }
-// console.log(formFields);
+console.log(formFields);
 
 //for redirecting after creating a place
 const history = useHistory()
@@ -61,9 +66,13 @@ try {
         <input onChange={handleInputChange} value={title} element='input' type='text' label='Title' placeholder='Enter Title' name='title' />
         <input onChange={handleInputChange} value={description} type='text' label='Description' placeholder='Enter description' name='description'/>
         <input onChange={handleInputChange} value={address} element='input' type='text' label='Address' placeholder='Enter a valid Address' name='address'/>
-        <ImageUpload onChange={handleInputChange} center id="image" errorText="please provide an image"/>
+
+        <ImageUpload onChange={(event, file)=>handleInputChange(event, file)}
+         center id="image" 
+         errorText="please provide an image"
+         />
         
-        <Button >ADD</Button>
+        <Button >ADD PLACE</Button>
       </form>
     </Fragment>
   )
