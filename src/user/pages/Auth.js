@@ -33,7 +33,7 @@ const Auth = () => {
 
         }
     }
-    console.log(formFields)
+    // console.log(formFields)
 
     //swichmode
     const switchModeHandler = ()=>{

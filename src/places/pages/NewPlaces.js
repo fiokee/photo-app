@@ -36,7 +36,7 @@ const [isLogInMode, setIsLogInMode] = useState(true);
       setFormFields({ ...formFields, [name]: value, image: file });
     }
 }
-console.log(formFields);
+// console.log(formFields);
 
 //for redirecting after creating a place
 const history = useHistory()
