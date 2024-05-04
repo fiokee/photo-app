@@ -54,7 +54,8 @@ const UpdatePlace = () => {
       description: formFields.description,
     }),
     {
-      'Content-Type': 'application/json' //this tells the kind of data we are expecting
+      'Content-Type': 'application/json', //this tells the kind of data we are expecting
+      Authorization: 'Bearer ' + auth.token // token to allow us update a place
     });
     history.push('/' + auth.userId + '/places') //to redirect to the places route after a successfull update
     } catch (error) {
