@@ -114,6 +114,7 @@ const Auth = () => {
                 onChange={handleInputChange}
                 label="Username"
                 errorText="please enter a username"
+                placeholder='enter user-name'
                 />
             )}
             {!isLogInMode && (<ImageUpload 
@@ -125,6 +126,7 @@ const Auth = () => {
 
             <input 
             element="input" 
+            placeholder='enter-email'
             id="email" 
             value={email}
             name="email"
@@ -136,6 +138,7 @@ const Auth = () => {
             <input 
             element="input" 
             id="password"
+            placeholder='enter-email'
             value={password}
             name="password"
             type="password" 
