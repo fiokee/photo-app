@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import UsersItem from './UsersItem';
 import Card from '../../shared/UiElement/Card/Card';
-import './UsersList.css'
+import './UsersList.css';
+import AllPlaces from '../../places/pages/AllPlaces';
 
 
 const UsersList = (props) => {
@@ -15,7 +16,8 @@ const UsersList = (props) => {
       ); 
     }
 
-    return <ul className='users-list'>
+    return <Fragment>
+      <ul className='users-list'>
         {props.items.map((user)=>(
             <UsersItem
              key={user.id} 
@@ -23,9 +25,11 @@ const UsersList = (props) => {
              image={user.image} 
              name={user.name}
              placeCount={user.places.length}
-             />
+             /> 
         ))}
     </ul>
+    
+    </Fragment> 
   
 }
 

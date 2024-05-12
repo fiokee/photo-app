@@ -1,6 +1,7 @@
 import React, {useState, useCallback} from 'react';
 import {BrowserRouter as Router, Route, Redirect, Switch} from 'react-router-dom'
 import Users from './user/pages/Users';
+import AllPlaces from './places/pages/AllPlaces';
 import NewPlaces from './places/pages/NewPlaces';
 import MainNavigation from './shared/UiElement/Navigation/MainNavigation';
 import UserPlaces from './places/pages/UserPlaces';
@@ -32,6 +33,10 @@ if(token){
     <Users/>
   </Route>
 
+  <Route path="/AllPlaces">
+    <AllPlaces/>
+  </Route>
+
       <Route path="/:userId/places" exact>
         <UserPlaces/>
       </Route>
@@ -56,7 +61,10 @@ if(token){
       <Route path="/:userId/places" exact>
         <UserPlaces/>
       </Route>
-
+      
+    <Route path="/AllPlaces">
+    <AllPlaces/>
+  </Route>
       <Route path="/auth">
         <Auth/>
       </Route>

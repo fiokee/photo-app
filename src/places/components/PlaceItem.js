@@ -1,4 +1,4 @@
-import React, {Fragment, useContext, useState} from 'react';
+import React, {Fragment, useContext, useState, useEffect} from 'react';
 import ErrorModal from '../../shared/UiElement/Errormodal/ErrorModal';
 import LoadingSpinner from '../../shared/UiElement/Loading/LoadingSpinner';
 import './PlaceItem.css';
@@ -7,6 +7,7 @@ import Button from '../../shared/formElement/Button/Button';
 import Modal from '../../shared/UiElement/Modal/Modal';
 import { AuthContext } from '../../shared/context/auth-context';
 import useHttpClient from '../../shared/http_hook';
+import UsersItem from '../../user/components/UsersItem';
 
 const PlaceItem = (props) => {
   const [showMap, setShowMap]= useState(false);
@@ -16,7 +17,19 @@ const PlaceItem = (props) => {
   const showMapHandler = ()=> setShowMap(true);
   const closeMapHandler = ()=> setShowMap(false);
  
-
+  // const UserProfile = () => {
+  //   const [profileData, setProfileData] = useState(null);
+  
+  //   useEffect(() => {
+  //     const fetchData = async () => {
+  //       const profile = await UsersItem();
+  //       setProfileData(profile);
+  //     };
+      
+  //     fetchData();
+  //   }, []);
+  // }
+    
   //show delete warning modal
   const showDeleteWarning = ()=>{
     setShowConfirmModal(true);
@@ -75,6 +88,7 @@ const PlaceItem = (props) => {
     <li className='place-item'>
       <Card className='place-item__content'>
         {isLoading && <LoadingSpinner asOverlay/>}
+        
       <div className='place-item__image'>
         <img src={`http://localhost:5000/${props.image}`} alt={props.title}/>
       </div>
