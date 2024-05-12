@@ -19,7 +19,12 @@ useEffect(()=>{
     const fetchUsersData = async ()=>{
         try {
             const responseData = await sendRequest(`http://localhost:5000/api/users`)
-            setUserData(responseData.users)
+            // Sort userData array in ascending order
+            const sortedUserData = responseData.users.slice().sort((a, b) => {
+          // Convert objects to JSON strings and compare
+          return JSON.stringify(b).localeCompare(JSON.stringify(a));
+        });
+        setUserData(sortedUserData);
         } catch (error) {
             
         }
