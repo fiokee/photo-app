@@ -25,7 +25,7 @@ const UserPlaces = () => {
 
     fetchUserPlaces();
   },[sendRequest, userId])
-  console.log(loadedePlaces)
+  // console.log(loadedePlaces)
 
 
   //filtering out places that was deleted and reloading the UI
