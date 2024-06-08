@@ -5,6 +5,7 @@ import Button from '../../shared/formElement/Button/Button';
 import Avatar from '../../shared/UiElement/Avatar/Avatar';
 import useHttpClient from '../../shared/http_hook';
 import LoadingSpinner from '../../shared/UiElement/Loading/LoadingSpinner';
+import Map from '../../shared/UiElement/Map/AllMap'
 
 const AllPlaces = (props) => {
   const { isLoading, sendRequest, error, clearError } = useHttpClient();
@@ -80,6 +81,7 @@ const AllPlaces = (props) => {
                         </React.Fragment>
                       )}
                     </div>
+                    <Map/>
                   </Card>
                 </li>
               );

@@ -23,7 +23,7 @@ const Users = () => {
     fetchUsers();
   },[sendRequest])
     
-  // console.log(loadedUsers)
+  console.log(loadedUsers)
   return (
     <div>
       <ErrorModal error ={error} onClear={clearError}/>
