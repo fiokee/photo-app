@@ -39,7 +39,7 @@ const PlaceItem = (props) => {
   const confirmDeleteHandler = async ()=>{
     setShowConfirmModal(false);
     try {
-      await sendRequest(`http://localhost:5000/api/places/${props.id}`, 'DELETE', null, {
+      await sendRequest(`https://app-backend-hop1.onrender.com/api/places/${props.id}`, 'DELETE', null, {
         Authorization: 'Bearer ' + auth.token
       })
       props.onDelete(props.id) //refreshing the page after deleting
