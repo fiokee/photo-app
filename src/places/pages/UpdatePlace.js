@@ -24,7 +24,7 @@ const UpdatePlace = () => {
   useEffect(()=>{
     const fetchPlaceToUpdate = async ()=>{
       try {
-        const responseData = await sendRequest(`http://localhost:5000/api/places/${placeId}`);
+        const responseData = await sendRequest(`https://app-backend-hop1.onrender.com/api/places/${placeId}`);
         setLoadedData(responseData.place);
         setFormFields({   // Set the initial state with loaded data
           title: responseData.place.title,
@@ -48,7 +48,7 @@ const UpdatePlace = () => {
     event.preventDefault();
 
     try {
-    await sendRequest(`http://localhost:5000/api/places/${placeId}`, 'PATCH',
+    await sendRequest(`https://app-backend-hop1.onrender.com/api/places/${placeId}`, 'PATCH',
     JSON.stringify({
       title:formFields.title,
       description: formFields.description,

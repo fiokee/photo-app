@@ -15,7 +15,7 @@ const AllPlaces = (props) => {
   useEffect(() => {
     const fetchUsersData = async () => {
       try {
-        const responseData = await sendRequest('http://localhost:5000/api/users');
+        const responseData = await sendRequest('https://app-backend-hop1.onrender.com/api/users');
         const sortedUserData = responseData.users.slice().sort((a, b) => JSON.stringify(b).localeCompare(JSON.stringify(a)));
         setUserData(sortedUserData);
       } catch (error) {
@@ -25,7 +25,7 @@ const AllPlaces = (props) => {
 
     const fetchPlacesData = async () => {
       try {
-        const responsePlaceData = await sendRequest('http://localhost:5000/api/places');
+        const responsePlaceData = await sendRequest('https://app-backend-hop1.onrender.com/api/places');
         const sortedPlaceData = responsePlaceData.places.slice().sort((a, b) => JSON.stringify(b).localeCompare(JSON.stringify(a)));
         setPlaceData(sortedPlaceData);
       } catch (error) {
@@ -56,7 +56,7 @@ const AllPlaces = (props) => {
                   <Card className="place-item__content">
                     {user && (
                       <div className="user-item__image">
-                        <Avatar image={`http://localhost:5000/${user.image}`} alt={user.name} />
+                        <Avatar image={`https://app-backend-hop1.onrender.com/${user.image}`} alt={user.name} />
                       </div>
                     )}
                     {user && (
@@ -65,7 +65,7 @@ const AllPlaces = (props) => {
                       </div>
                     )}
                     <div className="place-item__image">
-                      <img src={`http://localhost:5000/${place.image}`} alt={place.title} />
+                      <img src={`https://app-backend-hop1.onrender.com/${place.image}`} alt={place.title} />
                     </div>
                     <div className="place-item__info">
                       <h2>{place.title}</h2>

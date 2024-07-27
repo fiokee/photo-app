@@ -51,7 +51,7 @@ try {
   formData.append('image', formFields.image);
   formData.append('creator', auth.userId);
 
-  await sendRequest(`http://localhost:5000/api/places`, 'POST', formData, {
+  await sendRequest(`https://app-backend-hop1.onrender.com/api/places`, 'POST', formData, {
     Authorization: 'Bearer ' + auth.token
   });
     //redirect users to another route

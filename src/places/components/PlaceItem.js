@@ -8,6 +8,7 @@ import Modal from '../../shared/UiElement/Modal/Modal';
 import { AuthContext } from '../../shared/context/auth-context';
 import useHttpClient from '../../shared/http_hook';
 import UsersItem from '../../user/components/UsersItem';
+import PlaceMap from '../../shared/UiElement/Map/AllMap'
 
 const PlaceItem = (props) => {
   const [showMap, setShowMap]= useState(false);
@@ -65,7 +66,8 @@ const PlaceItem = (props) => {
         footer={<Button onClick={closeMapHandler}>Close</Button>}
         >
           <div className='map-container'>
-            <h2>{props.address}</h2>
+            {/* <h2>{props.address}</h2> */}
+            <PlaceMap/>
           </div>
         </Modal>
 
@@ -90,7 +92,7 @@ const PlaceItem = (props) => {
         {isLoading && <LoadingSpinner asOverlay/>}
         
       <div className='place-item__image'>
-        <img src={`http://localhost:5000/${props.image}`} alt={props.title}/>
+        <img src={`https://app-backend-hop1.onrender.com/${props.image}`} alt={props.title}/>
       </div>
       <div className='place-item__info'>
         <h2>{props.title}</h2>

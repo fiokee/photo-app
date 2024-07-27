@@ -33,7 +33,7 @@ const Auth = () => {
 
         }
     }
-    // console.log(formFields)
+    console.log(formFields )
 
     //swichmode
     const switchModeHandler = ()=>{
@@ -49,12 +49,12 @@ const Auth = () => {
     const submitHandler = async (event)=>{
         event.preventDefault();
 
-            
+            //http://localhost:5000/api/users/login
         //connecting to backend
         if(isLogInMode){ //check to see wether is login mode 
         try {
             const responseData =  await sendRequest(
-                `http://localhost:5000/api/users/login`,
+                `https://app-backend-hop1.onrender.com/api/users/login`, //http://localhost:5000/api/users/login
                 'POST',
                 JSON.stringify({
                 email: formFields.email,
@@ -82,7 +82,7 @@ const Auth = () => {
                 formData.append('image', formFields.image);
 
                 const responseData =  await sendRequest(
-                `http://localhost:5000/api/users/signup`,
+                `https://app-backend-hop1.onrender.com/api/users/signup`,
                 'POST', 
                 formData
             );

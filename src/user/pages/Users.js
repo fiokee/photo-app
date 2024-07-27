@@ -11,7 +11,10 @@ const Users = () => {
   useEffect(()=>{
     const fetchUsers = async ()=>{
       try {
-      const responseData = await sendRequest(`http://localhost:5000/api/users`);
+      const responseData = await sendRequest(`https://app-backend-hop1.onrender.com/api/users`);
+      http://localhost:5000/api/users
+
+      https://app-backend-delta.vercel.app/api/users
       
       setLoadedUsers(responseData.users);
      

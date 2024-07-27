@@ -65,9 +65,9 @@ const MapComponent = () => {
 
   return (
     <div>
-      <div className="sidebar">
+      {/* <div className="sidebar">
         Longitude: {lng} | Latitude: {lat} | Zoom: {zoom}
-      </div>
+      </div> */}
       <div ref={mapContainerRef} style={{ width: '100%', height: '400px' }}>
         Loading Map...
       </div>

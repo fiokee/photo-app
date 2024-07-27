@@ -16,7 +16,7 @@ const UserPlaces = () => {
   useEffect(()=>{
     const fetchUserPlaces = async()=>{
       try {
-        const responseData = await sendRequest(`http://localhost:5000/api/places/user/${userId}`);
+        const responseData = await sendRequest(`https://app-backend-hop1.onrender.com/api/places/user/${userId}`);
         setLoadedPlaces(responseData.places)
       } catch (err) {
         console.error('Error fetching user places:', err);
