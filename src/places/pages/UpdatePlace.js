@@ -7,6 +7,7 @@ import Button from '../../shared/formElement/Button/Button';
 import useHttpClient from '../../shared/http_hook';
 import Card from '../../shared/UiElement/Card/Card';
 import { AuthContext } from '../../shared/context/auth-context';
+import './Updateplace.css'
 
 
 const UpdatePlace = () => {
@@ -84,7 +85,7 @@ const UpdatePlace = () => {
     <Fragment>
       <ErrorModal error={error} onClear={clearError}/>
       {!isLoading && loadedData && (
-    <form onSubmit={updatePlacehandler}>
+    <form onSubmit={updatePlacehandler} className='form-update'>
       <input
       id='title'
        type='text'

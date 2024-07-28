@@ -14,7 +14,8 @@ const Users = () => {
       const responseData = await sendRequest(`https://app-backend-hop1.onrender.com/api/users`);
       http://localhost:5000/api/users
 
-      https://app-backend-delta.vercel.app/api/users
+      https://app-backend-hop1.onrender.com/api/users
+
       
       setLoadedUsers(responseData.users);
      

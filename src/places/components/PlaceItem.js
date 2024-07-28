@@ -86,7 +86,8 @@ const PlaceItem = (props) => {
           <p>Do you want to delete this place? it's can't be undone there after</p>
         </Modal>
         
-
+    <div className='container'>
+      
     <li className='place-item'>
       <Card className='place-item__content'>
         {isLoading && <LoadingSpinner asOverlay/>}
@@ -111,6 +112,7 @@ const PlaceItem = (props) => {
       </div>
       </Card>
     </li>
+    </div>
     </Fragment>
   )
 }

@@ -2,6 +2,10 @@
     color: white;
     text-align: center;
   }
+
+  hr{
+    border: solid 0.1px #88057d;
+  }
   
   .authentication {
     width: 90%;
@@ -15,4 +19,12 @@
   }
 
  /*input section*/
+
+ .authentication input{
+  width: 100%;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border-radius: 4px;
+  border: 2px solid #88057d;
+ }
  

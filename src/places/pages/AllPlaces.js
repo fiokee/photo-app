@@ -52,6 +52,7 @@ const AllPlaces = (props) => {
             {placeData.map((place) => {
               const user = getUserById(place.creator);
               return (
+                <div className='container'>
                 <li key={place.id} className="place-item">
                   <Card className="place-item__content">
                     {user && (
@@ -84,6 +85,7 @@ const AllPlaces = (props) => {
                     <Map/>
                   </Card>
                 </li>
+                </div>
               );
             })}
           </ul>

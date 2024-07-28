@@ -33,7 +33,7 @@ const Auth = () => {
 
         }
     }
-    console.log(formFields )
+    // console.log(formFields )
 
     //swichmode
     const switchModeHandler = ()=>{
@@ -138,7 +138,7 @@ const Auth = () => {
             <input 
             element="input" 
             id="password"
-            placeholder='enter-email'
+            placeholder='enter-password'
             value={password}
             name="password"
             type="password" 
